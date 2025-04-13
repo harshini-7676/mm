@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Personal Goal Tracker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f4f8;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header {
+      background-color: #2b6cb0;
+      color: white;
+      padding: 1rem;
+      width: 100%;
+      text-align: center;
+    }
+
+    main {
+      margin: 2rem;
+      width: 90%;
+      max-width: 500px;
+    }
+
+    .goal-form {
+      background: white;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .goal-form input, .goal-form button {
+      padding: 0.5rem;
+      margin: 0.5rem 0;
+      width: 100%;
+      font-size: 1rem;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      background: white;
+      padding: 0.8rem;
+      margin-top: 0.5rem;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .completed {
+      text-decoration: line-through;
+      color: gray;
+    }
+
+    .delete-btn {
+      background: red;
+      color: white;
+      border: none;
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .done-btn {
+      background: #2b6cb0;
+      color: white;
+      border: none;
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-right: 0.3rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Personal Goal Tracker</h1>
+    <p>Track your daily goals and stay productive!</p>
+  </header>
+
+  <main>
+    <div class="goal-form">
+      <input type="text" id="goalInput" placeholder="Enter your goal..." />
+      <button onclick="addGoal()">Add Goal</button>
+    </div>
+    <ul id="goalList"></ul>
+  </main>
+
+  <script>
+    function addGoal() {
+      const input = document.getElementById('goalInput');
+      const goalText = input.value.trim();
+
+      if (goalText === '') return;
+
+      const li = document.createElement('li');
+      const span = document.createElement('span');
+      span.textContent = goalText;
+
+      const doneBtn = document.createElement('button');
+      doneBtn.textContent = 'Done';
+      doneBtn.className = 'done-btn';
+      doneBtn.onclick = () => {
+        span.classList.toggle('completed');
+      };
+
+      const deleteBtn = document.createElement('button');
+      deleteBtn.textContent = 'X';
+      deleteBtn.className = 'delete-btn';
+      deleteBtn.onclick = () => {
+        li.remove();
+      };
+
+      const btnGroup = document.createElement('div');
+      btnGroup.appendChild(doneBtn);
+      btnGroup.appendChild(deleteBtn);
+
+      li.appendChild(span);
+      li.appendChild(btnGroup);
+
+      document.getElementById('goalList').appendChild(li);
+      input.value = '';
+    }
+  </script>
+</body>
+</html>
